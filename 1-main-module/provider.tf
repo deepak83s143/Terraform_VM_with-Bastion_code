@@ -6,12 +6,12 @@ terraform {
       version = "4.32.0"
     }
   }
-  backend "azurerm" {
-    resource_group_name  = "mademi-rg"
-    storage_account_name = "mademistg"
-    container_name       = "mademistatefiles"
-    key                  = "VmWithDocker.terraform.tfstate"
-  }
+ # backend "azurerm" {
+  #  resource_group_name  = "mademi-rg"
+   # storage_account_name = "mademistg"
+   # container_name       = "mademistatefiles"
+   # key                  = "VmWithDocker.terraform.tfstate"
+  #}
 }
 
 provider "azurerm" {
