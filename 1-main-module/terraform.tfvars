@@ -1,0 +1,15 @@
+rg-name             = "VMWithDocker-RG"
+rg-location         = "centralindia"
+vnet_name           = "VMWithDocker-vnet"
+address_space       = ["192.168.0.0/16"]
+subnet_name         = "VMWithDocker-Subnet"
+address_prefixes    = ["192.168.1.0/24"]
+pip_name            = "VMWithDocker-PIP"
+net_intface_name    = "VMWithDocker-NetInt"
+interface_ip_name   = "VMWithDocker-PrivateIP"
+vm_name             = "mademi-vm"
+nsg_name            = "VMWithDocker-NSG"
+bastion_ip_name     = "VMWithDocker-bastion-ip"
+bastion_host_name   = "VMWithDocker-bastion"
+bastion_subnet_name = "AzureBastionSubnet"
+bastion_add_prefix  = ["192.168.2.0/26"]
