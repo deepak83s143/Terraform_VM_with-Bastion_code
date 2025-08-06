@@ -1,4 +1,3 @@
-# Terraform_VM_with-Bastion_code
 # 🚀 Terraform Azure VM Deployment with Bastion Host
 
 This repository provides a modular Terraform configuration to deploy a Virtual Machine (VM) securely in Microsoft Azure with Bastion Host access. It includes all necessary infrastructure components such as Virtual Network, Subnet, Public IP, NSG, and Bastion.
