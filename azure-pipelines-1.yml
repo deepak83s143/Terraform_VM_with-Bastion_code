@@ -4,9 +4,6 @@ trigger:
 pool:
   name: mademitech
 
-variables:
-  INFRA_MODULE: 'terraform-modules/bastion-vm'
-
 stages:
 
 - stage: TerraformInit
