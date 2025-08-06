@@ -1,0 +1,59 @@
+trigger:
+- main
+
+pool:
+  name: mademitech
+
+variables:
+  INFRA_MODULE: 'terraform-modules/bastion-vm'
+
+stages:
+
+- stage: TerraformInit
+  displayName: "🧱 Terraform Init Stage"
+  jobs:
+  - job: initJob
+    displayName: "🔧 Terraform Init"
+    steps:
+    - task: TerraformTask@5
+      displayName: '🚀 Init'
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/$(INFRA_MODULE)'
+        backendServiceArm: 'mademi-sc'
+        backendAzureRmStorageAccountName: 'mademistg'
+        backendAzureRmContainerName: 'mademitfstate'
+        backendAzureRmKey: 'VmWithDocker.terraform.tfstate'
+
+- stage: TerraformPlan
+  displayName: "📝 Terraform Plan Stage"
+  dependsOn: TerraformInit
+  jobs:
+  - job: planJob
+    displayName: "🧪 Terraform Plan"
+    steps:
+    - task: TerraformTask@5
+      displayName: '🚀 Plan for Infra'
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/$(INFRA_MODULE)'
+        environmentServiceNameAzureRM: 'mademi-sc'
+
+- stage: TerraformApply
+  displayName: "⚙️ Terraform Apply Stage"
+  dependsOn: TerraformPlan
+  jobs:
+  - job: applyJob
+    displayName: "🚀 Terraform Apply"
+    steps:
+    - task: TerraformTask@5
+      displayName: '🚀 Infra Creation' 
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/$(INFRA_MODULE)'
+        commandOptions: '--auto-approve'
+        environmentServiceNameAzureRM: 'mademi-sc'
+
