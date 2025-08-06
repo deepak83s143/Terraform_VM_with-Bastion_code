@@ -9,21 +9,33 @@ trigger:
 pool:
   name: mademitech
 
-steps:
-- task: TerraformTask@5
-  displayName: Init
-  inputs:
-    provider: 'azurerm'
-    command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/1-main-module'
-    backendServiceArm: 'mademi-sc'
-    backendAzureRmStorageAccountName: 'mademistg'
-    backendAzureRmContainerName: 'mademitfstate'
-    backendAzureRmKey: 'VmWithDocker.terraform.tfstate'
-- task: TerraformTask@5
-  displayName: Plan for Infra
-  inputs:
-    provider: 'azurerm'
-    command: 'plan'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/1-main-module'
-    environmentServiceNameAzureRM: 'mademi-sc'
+jobs:
+  - job: buildJob
+    displayName: "🚀 Build Infra with Bastion Host"
+    steps:
+    - task: TerraformTask@5
+      displayName: Init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/$(INFRA_MODULE)'
+        backendServiceArm: 'mademi-sc'
+        backendAzureRmStorageAccountName: 'mademistg'
+        backendAzureRmContainerName: 'mademitfstate'
+        backendAzureRmKey: 'VmWithDocker.terraform.tfstate'
+    - task: TerraformTask@5
+      displayName: 'Plan for Infra'
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/$(INFRA_MODULE)'
+        environmentServiceNameAzureRM: 'mademi-sc'
+    - task: TerraformTask@5
+      displayName: 'Infra Creation' 
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/$(INFRA_MODULE)'
+        commandOptions: '--auto-approve'
+        environmentServiceNameAzureRM: 'mademi-sc'
+    
