@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: mademitech
+  name: mademitech
 
 steps:
 - task: TerraformTask@5
