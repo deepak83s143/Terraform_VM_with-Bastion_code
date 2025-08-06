@@ -14,7 +14,7 @@ jobs:
     displayName: "🚀 Build Infra with Bastion Host"
     steps:
     - task: TerraformTask@5
-      displayName: Init
+      displayName: '🚀 Init'
       inputs:
         provider: 'azurerm'
         command: 'init'
@@ -24,17 +24,24 @@ jobs:
         backendAzureRmContainerName: 'mademitfstate'
         backendAzureRmKey: 'VmWithDocker.terraform.tfstate'
     - task: TerraformTask@5
-      displayName: 'Plan for Infra'
+      displayName: '🚀 Plan for Infra'
       inputs:
         provider: 'azurerm'
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/$(INFRA_MODULE)'
         environmentServiceNameAzureRM: 'mademi-sc'
     - task: TerraformTask@5
-      displayName: 'Infra Creation' 
+      displayName: '🚀 Infra Creation' 
       inputs:
         provider: 'azurerm'
         command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/$(INFRA_MODULE)'
+        commandOptions: '--auto-approve'
+        environmentServiceNameAzureRM: 'mademi-sc'
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'destroy'
         workingDirectory: '$(System.DefaultWorkingDirectory)/$(INFRA_MODULE)'
         commandOptions: '--auto-approve'
         environmentServiceNameAzureRM: 'mademi-sc'
