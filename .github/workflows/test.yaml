@@ -1,15 +1,15 @@
 name: "dd"
 on: workflow_dispatch
+
 jobs:
   terraform-job:
-     runs-on: Linux-MaDeMi
-     steps:
-       - name: checkout repo
-         uses: actions/checkout@v3
-       - name: Terraform Validation
-         uses: tf-actions/validate@v2 
-         with:
-           init: true
-                
-     
-  
+    runs-on: Linux-MaDeMi
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Terraform Validation
+        uses: tf-actions/validate@v1.0.0  # Keep it at v1.0.0
+        with:
+          init: true
+          strict_mode: false
+          working_directory: /home/mademi/hithub-runner/actions-runner/_work/Terraform_VM_with-Bastion_code/Terraform_VM_with-Bastion_code
