@@ -16,3 +16,4 @@ jobs:
 
       - name: Terraform Plan
         run: terraform plan
+        working-directory: ./Terraform_VM_with-Bastion_code/Terraform_VM_with-Bastion_code/1-main-module
