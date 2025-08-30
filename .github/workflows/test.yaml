@@ -2,7 +2,7 @@ name: "dd"
 on: workflow_dispatch
 jobs:
   terraform-job:
-     run_on: Linux-MaDeMi
+     run-on: Linux-MaDeMi
      steps:
        - name: checkout repo
          uses: actions/checkout@v3
