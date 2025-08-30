@@ -7,9 +7,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Terraform Validation
-        uses: tf-actions/validate@v1.0.1  # Keep it at v1.0.0
-        with:
-          init: true
-          strict_mode: false
-          working_directory: /home/mademi/hithub-runner/actions-runner/_work/Terraform_VM_with-Bastion_code/Terraform_VM_with-Bastion_code
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+      
+      - name: Terraform Validate
+        run: terraform validate
