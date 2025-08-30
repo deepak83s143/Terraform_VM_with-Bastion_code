@@ -6,5 +6,10 @@ jobs:
      steps:
        - name: checkout repo
          uses: actions/checkout@v3
+       - name: Terraform Validation
+         uses: tf-actions/validate@v1.0.0
+         with:
+           init: true
+                
      
   
